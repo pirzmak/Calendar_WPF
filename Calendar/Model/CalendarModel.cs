@@ -9,53 +9,53 @@ using System.Linq;
 
 namespace Calendar.Model
 {
-    public class CalendarModel : NotifyBase
+    public class CalendarModel : NotifyBase, ICalendar
     {
-        private List<Day> allDays;
+        public List<Day> AllDays { get; set; }
         public BindingList<Day> Days { get; set; }
 
         public CalendarModel()
         {
-            allDays = new List<Day>();
+            AllDays = new List<Day>();
         }
 
-        public BindingList<Day> loadEvents(DateTime from, DateTime to)
+        public BindingList<Day> LoadEvents(DateTime from, DateTime to)
         {
-            List<Day> filteredList = allDays.Where(d => d.Date.Date.CompareTo(from.Date) >= 0 && d.Date.Date.CompareTo(to.Date) <= 0).ToList();
+            List<Day> filteredList = AllDays.Where(d => d.Date.Date.CompareTo(from.Date) >= 0 && d.Date.Date.CompareTo(to.Date) <= 0).ToList();
             Days = new BindingList<Day>(filteredList);  
             
-            Days.ListChanged += daysChanged;
+            Days.ListChanged += DaysChanged;
             
             return Days;
         }        
 
-        private void daysChanged(object sender, ListChangedEventArgs e)
+        private void DaysChanged(object sender, ListChangedEventArgs e)
         {
             OnPropertyChanged("Days");
         }
 
-        public void deleteEvent(Event e)
+        public void DeleteEvent(Event e)
         {
             foreach (Day d in Days)
-               if( d.Date.Date.Equals(e.StartDate.Date)) d.deleteEvent(e);
+               if( d.Date.Date.Equals(e.StartDate.Date)) d.DeleteEvent(e);
 
-            foreach (Day d in allDays)
-                if (d.Date.Date.Equals(e.StartDate.Date)) d.deleteEvent(e);
+            foreach (Day d in AllDays)
+                if (d.Date.Date.Equals(e.StartDate.Date)) d.DeleteEvent(e);
         }
 
-        public void addEvent(Event e)
+        public void AddEvent(Event e)
         {
             foreach (Day d in Days)
-                if (d.Date.Date.Equals(e.StartDate.Date)){ d.addEvent(e); return; }
+                if (d.Date.Date.Equals(e.StartDate.Date)){ d.AddEvent(e); return; }
 
-            foreach (Day d in allDays)
-                if (d.Date.Date.Equals(e.StartDate.Date)) { d.addEvent(e); return; }
+            foreach (Day d in AllDays)
+                if (d.Date.Date.Equals(e.StartDate.Date)) { d.AddEvent(e); return; }
 
             Day newDay = new Day(e.StartDate);
-            newDay.addEvent(e);
+            newDay.AddEvent(e);
 
             Days.Add(newDay);
-            allDays.Add(newDay);
+            AllDays.Add(newDay);
         }
 
     }

@@ -29,7 +29,7 @@ namespace Calendar
         {
 
             mainStyle = blueStyle;
-            setResourcesColors(mainStyle);
+            SetResourcesColors(mainStyle);
 
             fontStyle = new FontFamily("Arial");
             Resources["fontStyle"] = fontStyle;
@@ -72,13 +72,13 @@ namespace Calendar
             switch ((String)((sender as MenuItem).Tag))
             {
                 case "Red":
-                    setResourcesColors(redStyle);
+                    SetResourcesColors(redStyle);
                     break;
                 case "Blue":
-                    setResourcesColors(blueStyle);
+                    SetResourcesColors(blueStyle);
                     break;
                 case "Green":
-                    setResourcesColors(greenStyle);
+                    SetResourcesColors(greenStyle);
                     break;
                 case "Arial":
                     Resources["fontStyle"] = new FontFamily("Arial");
@@ -90,14 +90,14 @@ namespace Calendar
                     Resources["fontStyle"] = new FontFamily("Comic Sans MS");
                     break;
                 default:
-                    setResourcesColors(mainStyle);
+                    SetResourcesColors(mainStyle);
                     break;
             }
         }
 
         public void MenuItem_Leave(object sender, RoutedEventArgs e)
         {
-            setResourcesColors(mainStyle);
+            SetResourcesColors(mainStyle);
         }
 
         public void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -105,26 +105,26 @@ namespace Calendar
             switch ((String)((sender as MenuItem).Tag))
             {
                 case "Red":
-                    setColors(redStyle);
+                    SetColors(redStyle);
                     break;
                 case "Blue":
-                    setColors(blueStyle);
+                    SetColors(blueStyle);
                     break;
                 case "Green":
-                    setColors(greenStyle);
+                    SetColors(greenStyle);
                     break;
                 default:
                     break;
             }
-            setResourcesColors(mainStyle);
+            SetResourcesColors(mainStyle);
         }
 
-        private void setColors(Dictionary<string, SolidColorBrush> style)
+        private void SetColors(Dictionary<string, SolidColorBrush> style)
         {
             mainStyle = style;
         }
 
-        private void setResourcesColors(Dictionary<string, SolidColorBrush> style)
+        private void SetResourcesColors(Dictionary<string, SolidColorBrush> style)
         {
             Resources["mainColor"] = style["mainColor"];
             Resources["secondColor"] = style["secondColor"];
@@ -138,21 +138,21 @@ namespace Calendar
             return (SolidColorBrush)(new BrushConverter().ConvertFrom(color));
         }
 
-        private void showEventSettingInfo(Event e, bool newEvent)
+        private void ShowEventSettingInfo(Event e, bool newEvent)
         {
             MainWindowViewModel o1 = this.vm1;
             EventSettings wnd = new EventSettings();
             EventSettingsWindowViewModel s = wnd.vm1;
             if (newEvent)
-                s.loadNewEventInfo(e, o1.getCalendarModel());
+                s.LoadNewEventInfo(e, o1.CalendarModel);
             else 
-                s.loadEventInfo(e, o1.getCalendarModel());
+                s.LoadEventInfo(e, o1.CalendarModel);
             bool? res = wnd.ShowDialog();
         }
 
         protected void HandleDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            showEventSettingInfo(((ListViewItem)sender).Content as Event, false);
+            ShowEventSettingInfo(((ListViewItem)sender).Content as Event, false);
         }
 
         protected void HandleRectClick(object sender, MouseButtonEventArgs e)
@@ -160,9 +160,8 @@ namespace Calendar
             if (e.ClickCount == 2)
             {
                 DateTime date = (((Grid)sender).DataContext as Day).Date;
-                Event newEvent = new Event("");
-                newEvent.StartDate = date;
-                showEventSettingInfo(newEvent, true);
+                Event newEvent = new Event("", date, date, "");
+                ShowEventSettingInfo(newEvent, true);
             }
         }       
     }   

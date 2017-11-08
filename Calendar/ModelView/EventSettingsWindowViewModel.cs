@@ -9,11 +9,11 @@ using System.Windows;
 
 namespace Calendar.ModelView
 {
-    class EventSettingsWindowViewModel : NotifyBase
+    public class EventSettingsWindowViewModel : NotifyBase
     {       
 
         public Event MyEvent { get; set; }
-        private CalendarModel calendarModel;
+        public ICalendar CalendarModel { get; set; }
         private bool _oldEvent;
 
         private String _newTitle;
@@ -65,7 +65,7 @@ namespace Calendar.ModelView
             set { SetProperty(ref _newToM, value); }
         }
 
-        public void loadEventInfo(Event e, CalendarModel calendarModel)
+        public void LoadEventInfo(Event e, CalendarModel calendarModel)
         {
             NewTitle = e.Title;
             NewMessage = e.Message;
@@ -75,10 +75,10 @@ namespace Calendar.ModelView
             NewToM = e.EndDate.Minute;
             MyEvent = e;
             OldEvent = true;
-            this.calendarModel = calendarModel;
+            this.CalendarModel = calendarModel;
         }
 
-        public void loadNewEventInfo(Event e, CalendarModel calendarModel)
+        public void LoadNewEventInfo(Event e, CalendarModel calendarModel)
         {
             NewTitle = "";
             NewMessage = "";
@@ -88,12 +88,12 @@ namespace Calendar.ModelView
             NewToM = 0;
             MyEvent = e;
             OldEvent = false;
-            this.calendarModel = calendarModel;
+            this.CalendarModel = calendarModel;
         }
 
-        private void saveButtonClick(object sender)
+        private void SaveButtonClick(object sender)
         {
-            if (NewTitle != "")
+            if (NewTitle != "" && NewFromH*60 + NewFromM < NewToH*60 + NewToM)
             {
                 MyEvent.Title = NewTitle;
                 MyEvent.Message = NewMessage;
@@ -101,15 +101,15 @@ namespace Calendar.ModelView
                 MyEvent.EndDate = new DateTime(MyEvent.StartDate.Year, MyEvent.StartDate.Month, MyEvent.StartDate.Day, NewToH, NewToM, 0);
 
                 if(!OldEvent)
-                    calendarModel.addEvent(MyEvent);
+                    CalendarModel.AddEvent(MyEvent);
 
                 ((Window)sender).Close();
             }
         }
 
-        private void deleteButtonClick(object sender)
+        private void DeleteButtonClick(object sender)
         {
-            calendarModel.deleteEvent(MyEvent);
+            CalendarModel.DeleteEvent(MyEvent);
             ((Window)sender).Close();
         }
 
@@ -122,7 +122,7 @@ namespace Calendar.ModelView
                 if (_saveCommand == null)
                 {
                     _saveCommand = new RelayCommand(
-                        param => this.saveButtonClick(param)
+                        param => this.SaveButtonClick(param)
                     );
                 }
                 return _saveCommand;
@@ -138,7 +138,7 @@ namespace Calendar.ModelView
                 if (_deleteCommand == null)
                 {
                     _deleteCommand = new RelayCommand(
-                        param => this.deleteButtonClick(param)
+                        param => this.DeleteButtonClick(param)
                     );
                 }
                 return _deleteCommand;

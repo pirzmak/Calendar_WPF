@@ -17,10 +17,10 @@ namespace Calendar.Model
             EventsList = new BindingList<Event>();
             EventsList = new BindingList<Event>(EventsList.OrderBy(e => e.StartDate.TimeOfDay).ToList());
 
-            EventsList.ListChanged += eventsChanged;
+            EventsList.ListChanged += EventsChanged;
         }
 
-        private void eventsChanged(object sender, ListChangedEventArgs c)
+        private void EventsChanged(object sender, ListChangedEventArgs c)
         {            
             OnPropertyChanged("EventsList");
         }
@@ -48,13 +48,13 @@ namespace Calendar.Model
         }
      
 
-        public void addEvent(Event e)
+        public void AddEvent(Event e)
         {
             EventsList.Add(e);
             EventsList = new BindingList<Event>(EventsList.OrderBy(ev => ev.StartDate.TimeOfDay).ToList());
         }
 
-        public void deleteEvent(Event e)
+        public void DeleteEvent(Event e)
         {
             EventsList.Remove(e);
         }

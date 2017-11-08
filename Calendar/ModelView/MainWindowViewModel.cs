@@ -17,39 +17,29 @@ namespace Calendar.ModelView
 
         const int NUMDAYSINWEEK = 7;
 
-        private DateTime actualDay;
+        public DateTime ActualDay { get; set; }
 
-        private CalendarModel calendarModel;
+        public CalendarModel CalendarModel { get; set; }
 
         private Day[][] _days;
 
-        public SolidColorBrush _mainColor;
-
-        public SolidColorBrush MainColor
-        {
-            get { return _mainColor; }
-            set { SetProperty(ref _mainColor, value); }
-        }
-
         public MainWindowViewModel()
         {
-            actualDay = getFirstDayOfWeek(DateTime.Now);
+            ActualDay = GetFirstDayOfWeek(DateTime.Now);
 
-            calendarModel = new CalendarModel();
-            calendarModel.loadEvents(actualDay, actualDay.AddDays(4 * NUMDAYSINWEEK));
+            CalendarModel = new CalendarModel();
+            CalendarModel.LoadEvents(ActualDay, ActualDay.AddDays(4 * NUMDAYSINWEEK));
             
-            calendarModel.PropertyChanged += onPropertyChange;
+            CalendarModel.PropertyChanged += OnPropertyChange;
 
-            Days = loadEvents();
-
-            MainColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+            Days = LoadEvents();            
 
             log.Info("Calendar Started");
         }
 
-        public void onPropertyChange(object sender, PropertyChangedEventArgs e)
+        public void OnPropertyChange(object sender, PropertyChangedEventArgs e)
         {
-            Days = loadEvents();            
+            Days = LoadEvents();            
         }
 
         public Day[][] Days
@@ -59,35 +49,35 @@ namespace Calendar.ModelView
         }
 
 
-        public void nextClick()
+        public void NextClick()
         {
-            moveCalendarView(7);
+            MoveCalendarView(7);
         }
 
-        public void prevClick()
+        public void PrevClick()
         {
-            moveCalendarView(-7);
+            MoveCalendarView(-7);
         }
 
-        private void moveCalendarView(int days)
+        private void MoveCalendarView(int days)
         {
-            actualDay = actualDay.AddDays(days);
-            Days = loadEvents();
+            ActualDay = ActualDay.AddDays(days);
+            Days = LoadEvents();
         }
 
-        private Day[][] loadEvents()
+        private Day[][] LoadEvents()
         {
             Day[][] newDL = new Day[4][];
 
-            DateTime day = actualDay;
+            DateTime day = ActualDay;
 
             for (int x = 0; x < newDL.Length; x += 1)
             {
                 newDL[x] = new Day[NUMDAYSINWEEK];
                 for (int y = 0; y < NUMDAYSINWEEK; y += 1)
                 {                    
-                    if (calendarModel.Days.Any(d => d.Date.Date.Equals(day.Date)))
-                        newDL[x][y] = calendarModel.Days.Single(d => d.Date.Date.Equals(day.Date));
+                    if (CalendarModel.Days.Any(d => d.Date.Date.Equals(day.Date)))
+                        newDL[x][y] = CalendarModel.Days.Single(d => d.Date.Date.Equals(day.Date));
                     else
                         newDL[x][y] = new Day(day);
 
@@ -96,20 +86,15 @@ namespace Calendar.ModelView
             }
 
             return newDL;
-        }
+        }              
 
-        public CalendarModel getCalendarModel()
-        {
-            return calendarModel;
-        }
-
-        private DateTime getFirstDayOfWeek(DateTime date)
+        private DateTime GetFirstDayOfWeek(DateTime date)
         {
             return date.AddDays(-((int)date.DayOfWeek - 1));
         }
 
-        public ICommand nextClickCommand { get { return new RelayCommand(o => nextClick()); } }
-        public ICommand prevClickCommand { get { return new RelayCommand(o => prevClick()); } }
+        public ICommand NextClickCommand { get { return new RelayCommand(o => NextClick()); } }
+        public ICommand PrevClickCommand { get { return new RelayCommand(o => PrevClick()); } }
 
     }
 

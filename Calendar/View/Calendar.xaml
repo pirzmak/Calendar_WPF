@@ -175,12 +175,12 @@
             <ColumnDefinition Width="160*"/>
             <ColumnDefinition Width="80*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Prev" Command="{Binding prevClickCommand}"></Button>
+        <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Prev" Command="{Binding PrevClickCommand}"></Button>
         <ContentControl Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyWeekTemplate}" Content="{Binding Days[0][0]}"></ContentControl>
         <ContentControl Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyWeekTemplate}" Content="{Binding Days[1][0]}"></ContentControl>
         <ContentControl Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyWeekTemplate}" Content="{Binding Days[2][0]}"></ContentControl>
         <ContentControl Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyWeekTemplate}" Content="{Binding Days[3][0]}"></ContentControl>
-        <Button Grid.Row="5" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Next" Command="{Binding nextClickCommand}"></Button>
+        <Button Grid.Row="5" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Next" Command="{Binding NextClickCommand}"></Button>
 
         <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource MyHeader}">
             <TextBlock>Monday</TextBlock>
@@ -205,12 +205,12 @@
         </Border>
 
 
-        <Button Grid.Row="0" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Prev" Command="{Binding prevClickCommand}"></Button>
+        <Button Grid.Row="0" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Prev" Command="{Binding PrevClickCommand}"></Button>
         <ContentControl Grid.Row="1" Grid.Column="8" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyWeekTemplate}" Content="{Binding Days[0][0]}"></ContentControl>
         <ContentControl Grid.Row="2" Grid.Column="8" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyWeekTemplate}" Content="{Binding Days[1][0]}"></ContentControl>
         <ContentControl Grid.Row="3" Grid.Column="8" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyWeekTemplate}" Content="{Binding Days[2][0]}"></ContentControl>
         <ContentControl Grid.Row="4" Grid.Column="8" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyWeekTemplate}" Content="{Binding Days[3][0]}"></ContentControl>
-        <Button Grid.Row="5" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Next" Command="{Binding nextClickCommand}"></Button>
+        <Button Grid.Row="5" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Next" Command="{Binding NextClickCommand}"></Button>
 
         <Border Grid.Row="5" Grid.Column="1" Style="{StaticResource MyHeader}">
             <TextBlock>Monday</TextBlock>

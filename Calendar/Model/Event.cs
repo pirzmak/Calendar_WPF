@@ -38,10 +38,22 @@ namespace Calendar.Model
             set { SetProperty(ref _message, value); }
         }
 
+        public Event(String title, DateTime start, DateTime end, String message)
+        {
+            this.Title = title;
+            this.StartDate = start;
+            this.EndDate = end;
+            this.Message = message;
+        }
+
         public Event(String title)
         {
             this.Title = title;
+            this.StartDate = DateTime.Now;
+            this.EndDate = DateTime.Now;
+            this.Message = "";
         }
-                
+
+
     }
 }

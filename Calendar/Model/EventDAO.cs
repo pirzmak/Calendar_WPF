@@ -10,6 +10,9 @@ namespace Calendar.Model
 {
     public class EventDAO
     {
+        private static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private String filePath = "events.bor";
         private List<Event> events;
 
@@ -82,6 +85,25 @@ namespace Calendar.Model
             events.Add(e);
 
             WriteToXmlFile<List<Event>>(filePath, events);
+
+            log.Info("Add new event "+ e.ToString());
+        }
+
+        public void changeEvents(List<Event> evs)
+        {
+            foreach (Event e in evs)
+                if (events.Exists(ev => ev.Id.Equals(e.Id))) {
+                events.Find(ev => ev.Id.Equals(e.Id)).Title = e.Title;
+                events.Find(ev => ev.Id.Equals(e.Id)).Message = e.Message;
+                events.Find(ev => ev.Id.Equals(e.Id)).StartDate = e.StartDate;
+                events.Find(ev => ev.Id.Equals(e.Id)).EndDate = e.EndDate;
+
+                WriteToXmlFile<List<Event>>(filePath, events);
+
+                log.Info("Change event " + e.ToString());
+            }else            
+
+            log.Error("Try to write o not existed event " + e.ToString());
         }
 
         public void deleteEvent(Event e)
@@ -89,6 +111,8 @@ namespace Calendar.Model
             events.Remove(e);
 
             WriteToXmlFile<List<Event>>(filePath, events);
+
+            log.Info("Delete event " + e.ToString());
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Calendar.Model
 
         public void DaysChanged(object sender, ListChangedEventArgs e)
         {
+            eventDAO.changeEvents(Days[e.NewIndex].EventsList.ToList());
             OnPropertyChanged("Days");
         }
 

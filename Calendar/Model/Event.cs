@@ -13,6 +13,7 @@ namespace Calendar.Model
         public DateTime _endDate;
         public String _title;
         public String _message;
+        public Guid Id { get;}
 
         public DateTime StartDate
         {
@@ -44,6 +45,7 @@ namespace Calendar.Model
             this.StartDate = start;
             this.EndDate = end;
             this.Message = message;
+            this.Id = Guid.NewGuid();
         }
 
         public Event(String title)
@@ -52,6 +54,7 @@ namespace Calendar.Model
             this.StartDate = DateTime.Now;
             this.EndDate = DateTime.Now;
             this.Message = "";
+            this.Id = Guid.NewGuid();
         }
 
         public Event()
@@ -60,8 +63,12 @@ namespace Calendar.Model
             this.StartDate = DateTime.Now;
             this.EndDate = DateTime.Now;
             this.Message = "";
+            this.Id = Guid.NewGuid();
         }
 
-
+        public override string ToString()
+        {
+            return "ID: " + this.Id + " Date: " + this.StartDate.Date + " Title: " + this.Title + " " + this.StartDate.ToString("HH:mm") + "-" + this.EndDate.ToString("HH:mm") + " Message:" + this.Message;
+        }
     }
 }

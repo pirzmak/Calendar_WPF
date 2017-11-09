@@ -119,7 +119,15 @@
         <ControlTemplate x:Key="MyButtonTemplate" TargetType="Button">
             <Border Style="{StaticResource MyCorner}">
                 <Grid>
-                    <Button Background="Transparent" Content="{TemplateBinding Content}" Style="{StaticResource MyCornerButton}" Command="{TemplateBinding Command}"></Button>
+                    <Button Background="Transparent" Content="{TemplateBinding Content}" Style="{StaticResource MyCornerButton}" Command="{TemplateBinding Command}">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <Viewbox StretchDirection="DownOnly">
+                                    <TextBlock Text="{TemplateBinding Content}"></TextBlock>
+                                </Viewbox>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
                 </Grid>
             </Border>
         </ControlTemplate>
@@ -143,8 +151,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="160*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource MyWeekLabelText}" VerticalAlignment="Bottom" Text="{Binding DateWeekNumber}"></TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource MyWeekLabelText}" VerticalAlignment="Top" Text="{Binding Date.Year}"></TextBlock>
+                    <Viewbox Grid.Row="0" Grid.Column="0" StretchDirection="DownOnly">
+                        <TextBlock Style="{StaticResource MyWeekLabelText}" VerticalAlignment="Bottom" Text="{Binding DateWeekNumber}"></TextBlock>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" Grid.Column="0" StretchDirection="DownOnly">
+                        <TextBlock Style="{StaticResource MyWeekLabelText}" VerticalAlignment="Top" Text="{Binding Date.Year}"></TextBlock>
+                    </Viewbox>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -183,25 +195,39 @@
         <Button Grid.Row="5" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Next" Command="{Binding NextClickCommand}"></Button>
 
         <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource MyHeader}">
-            <TextBlock>Monday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Monday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource MyHeader}">
-            <TextBlock>Tuesday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Tuesday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="0" Grid.Column="3" Style="{StaticResource MyHeader}">
-            <TextBlock>Wednesday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Wednesday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="0" Grid.Column="4" Style="{StaticResource MyHeader}">
-            <TextBlock>Thursday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Thursday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="0" Grid.Column="5" Style="{StaticResource MyHeader}">
-            <TextBlock>Friday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Friday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="0" Grid.Column="6" Style="{StaticResource MyHeader}">
-            <TextBlock>Saturday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Saturday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="0" Grid.Column="7" Style="{StaticResource MyHeader}">
-            <TextBlock>Sunday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Sunday</TextBlock>
+            </Viewbox>
         </Border>
 
 
@@ -213,25 +239,39 @@
         <Button Grid.Row="5" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource MyButtonTemplate}" Content="Next" Command="{Binding NextClickCommand}"></Button>
 
         <Border Grid.Row="5" Grid.Column="1" Style="{StaticResource MyHeader}">
-            <TextBlock>Monday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Monday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="5" Grid.Column="2" Style="{StaticResource MyHeader}">
-            <TextBlock>Tuesday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Tuesday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="5" Grid.Column="3" Style="{StaticResource MyHeader}">
-            <TextBlock>Wednesday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Wednesday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="5" Grid.Column="4" Style="{StaticResource MyHeader}">
-            <TextBlock>Thursday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Thursday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="5" Grid.Column="5" Style="{StaticResource MyHeader}">
-            <TextBlock>Friday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Friday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="5" Grid.Column="6" Style="{StaticResource MyHeader}">
-            <TextBlock>Saturday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Saturday</TextBlock>
+            </Viewbox>
         </Border>
         <Border Grid.Row="5" Grid.Column="7" Style="{StaticResource MyHeader}">
-            <TextBlock>Sunday</TextBlock>
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock>Sunday</TextBlock>
+            </Viewbox>
         </Border>
 
         <ContentControl Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource MyDayTemplate}" Content="{Binding Days[0][0]}"></ContentControl>

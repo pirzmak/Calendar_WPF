@@ -11,12 +11,14 @@ namespace Calendar.Model
 {
     public class CalendarModel : NotifyBase, ICalendar
     {
+        private EventDAO eventDAO;
         public List<Day> AllDays { get; set; }
         public BindingList<Day> Days { get; set; }
 
         public CalendarModel()
         {
-            AllDays = new List<Day>();
+            eventDAO = new EventDAO();
+            AllDays = eventDAO.getEvents();
         }
 
         public BindingList<Day> LoadEvents(DateTime from, DateTime to)
@@ -41,6 +43,8 @@ namespace Calendar.Model
 
             foreach (Day d in AllDays)
                 if (d.Date.Date.Equals(e.StartDate.Date)) d.DeleteEvent(e);
+
+            eventDAO.deleteEvent(e);
         }
 
         public void AddEvent(Event e)
@@ -56,6 +60,8 @@ namespace Calendar.Model
 
             Days.Add(newDay);
             AllDays.Add(newDay);
+
+            eventDAO.saveEvent(e);
         }
 
     }

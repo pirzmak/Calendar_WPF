@@ -54,6 +54,14 @@ namespace Calendar.Model
             this.Message = "";
         }
 
+        public Event()
+        {
+            this.Title = "";
+            this.StartDate = DateTime.Now;
+            this.EndDate = DateTime.Now;
+            this.Message = "";
+        }
+
 
     }
 }

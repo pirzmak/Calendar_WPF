@@ -73,6 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="ModelView\EventSettingsWindowViewModel.cs" />
     <Compile Include="ModelView\IsTodayConverter.cs" />
+    <Compile Include="Model\EventDAO.cs" />
     <Compile Include="Model\ICalendar.cs" />
     <Compile Include="Utils\NotifyBase.cs" />
     <Compile Include="Model\Day.cs" />

@@ -62,6 +62,7 @@
     <Compile Include="ModelView\EventSettingsWindowViewModelTests.cs" />
     <Compile Include="ModelView\MainWindowViewModelTests.cs" />
     <Compile Include="Model\CalendarModelTests.cs" />
+    <Compile Include="Model\DayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

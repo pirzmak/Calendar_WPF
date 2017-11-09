@@ -65,7 +65,7 @@ namespace Calendar.ModelView
             set { SetProperty(ref _newToM, value); }
         }
 
-        public void LoadEventInfo(Event e, CalendarModel calendarModel)
+        public void LoadEventInfo(Event e, ICalendar calendarModel)
         {
             NewTitle = e.Title;
             NewMessage = e.Message;
@@ -78,7 +78,7 @@ namespace Calendar.ModelView
             this.CalendarModel = calendarModel;
         }
 
-        public void LoadNewEventInfo(Event e, CalendarModel calendarModel)
+        public void LoadNewEventInfo(Event e, ICalendar calendarModel)
         {
             NewTitle = "";
             NewMessage = "";
@@ -93,7 +93,7 @@ namespace Calendar.ModelView
 
         private void SaveButtonClick(object sender)
         {
-            if (NewTitle != "" && NewFromH*60 + NewFromM < NewToH*60 + NewToM)
+            if (NewTitle != "")
             {
                 MyEvent.Title = NewTitle;
                 MyEvent.Message = NewMessage;

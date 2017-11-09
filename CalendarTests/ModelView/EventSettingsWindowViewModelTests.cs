@@ -71,5 +71,52 @@ namespace Calendar.ModelView.Tests
             Assert.IsTrue(vm.CalendarModel.AllDays[0].EventsList[0].Title == "New" ||
                 vm.CalendarModel.AllDays[0].EventsList[0].Title == "Old");
         }
+        [TestMethod()]
+        public void SaveEmptyEventInfoTest()
+        {
+            List<Event> events = new List<Event>();
+            Event eventMock = new Event("Old", DateTime.Parse("11-01-2000 10:00"), DateTime.Parse("11-01-2000 12:00"), "");
+            var day = new Day(DateTime.Parse("11-01-2000"));
+            day.EventsList.Add(eventMock);
+
+            calendarMock.Expect(dao => dao.AllDays.Add(day));
+
+            vm.NewFromH = 10;
+            vm.NewFromM = 0;
+            vm.NewToH = 12;
+            vm.NewToM = 30;
+            vm.NewTitle = "";
+
+            vm.MyEvent = eventMock;
+            vm.OldEvent = false;
+
+            vm.SaveCommand.Execute(new EventSettings());
+
+            calendarMock.Expect(dao => dao.AllDays.Count).Equals(1);
+
+            Assert.IsFalse(vm.CalendarModel.AllDays.Count == 2);
+        }
+        [TestMethod()]
+        public void DeleteEventTest()
+        {
+            List<Event> events = new List<Event>();
+            Event eventMock = new Event("New", DateTime.Parse("11-01-2000 10:00"), DateTime.Parse("11-01-2000 12:00"), "");
+            var day = new Day(DateTime.Parse("11-01-2000"));
+            day.EventsList.Add(eventMock);
+
+            calendarMock.Expect(dao => dao.AllDays.Add(day));
+
+            vm.MyEvent = eventMock;
+            vm.OldEvent = true;
+            
+            vm.DeleteCommand.Execute(new EventSettings());
+
+            calendarMock.Expect(dao => dao.AllDays[0].DeleteEvent(eventMock));
+
+            calendarMock.Expect(dao => dao.AllDays[0].EventsList.Count).Equals(0);
+
+
+            Assert.AreEqual(0, vm.CalendarModel.AllDays[0].EventsList.Count);
+        }
     }
 }

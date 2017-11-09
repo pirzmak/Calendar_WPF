@@ -19,7 +19,7 @@ namespace Calendar.ModelView
 
         public DateTime ActualDay { get; set; }
 
-        public CalendarModel CalendarModel { get; set; }
+        public ICalendar CalendarModel { get; set; }
 
         private Day[][] _days;
 
@@ -30,7 +30,7 @@ namespace Calendar.ModelView
             CalendarModel = new CalendarModel();
             CalendarModel.LoadEvents(ActualDay, ActualDay.AddDays(4 * NUMDAYSINWEEK));
             
-            CalendarModel.PropertyChanged += OnPropertyChange;
+            ((CalendarModel)CalendarModel).PropertyChanged += OnPropertyChange;
 
             Days = LoadEvents();            
 

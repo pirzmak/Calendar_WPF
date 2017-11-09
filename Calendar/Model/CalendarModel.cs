@@ -29,7 +29,7 @@ namespace Calendar.Model
             return Days;
         }        
 
-        private void DaysChanged(object sender, ListChangedEventArgs e)
+        public void DaysChanged(object sender, ListChangedEventArgs e)
         {
             OnPropertyChanged("Days");
         }

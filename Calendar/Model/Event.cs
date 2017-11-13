@@ -66,6 +66,14 @@ namespace Calendar.Model
             this.Id = Guid.NewGuid();
         }
 
+        public void copy(Event e)
+        {
+            this.Title = e.Title;
+            this.StartDate = e.StartDate;
+            this.EndDate = e.EndDate;
+            this.Message = e.Message;
+        }
+
         public override string ToString()
         {
             return "ID: " + this.Id + " Date: " + this.StartDate.Date + " Title: " + this.Title + " " + this.StartDate.ToString("HH:mm") + "-" + this.EndDate.ToString("HH:mm") + " Message:" + this.Message;

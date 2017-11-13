@@ -89,9 +89,8 @@ namespace Calendar.Model
             log.Info("Add new event "+ e.ToString());
         }
 
-        public void changeEvents(List<Event> evs)
-        {
-            foreach (Event e in evs)
+        public void ChangeEvent(Event e)
+        {            
                 if (events.Exists(ev => ev.Id.Equals(e.Id))) {
                 events.Find(ev => ev.Id.Equals(e.Id)).Title = e.Title;
                 events.Find(ev => ev.Id.Equals(e.Id)).Message = e.Message;
@@ -100,7 +99,7 @@ namespace Calendar.Model
 
                 WriteToXmlFile<List<Event>>(filePath, events);
 
-                log.Info("Change event " + e.ToString());
+            log.Info("Change event " + e.ToString());
             }else            
 
             log.Error("Try to write o not existed event " + e.ToString());

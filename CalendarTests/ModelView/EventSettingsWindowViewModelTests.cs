@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Calendar.Model;
 using Rhino.Mocks;
 using Calendar.View;
+using System.Globalization;
 
 namespace Calendar.ModelView.Tests
 {
@@ -27,8 +28,9 @@ namespace Calendar.ModelView.Tests
         public void SaveChangeEventInfoTest()
         {
             List<Event> events = new List<Event>();
-            Event eventMock = new Event("New", DateTime.Parse("11-01-2000 10:00"), DateTime.Parse("11-01-2000 12:00"), "");
-            var day = new Day(DateTime.Parse("11-01-2000"));
+            Event eventMock = new Event("New", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            var day = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
             day.EventsList.Add(eventMock);
 
             calendarMock.Expect(dao => dao.AllDays.Add(day));
@@ -49,8 +51,9 @@ namespace Calendar.ModelView.Tests
         public void SaveNewEventInfoTest()
         {
             List<Event> events = new List<Event>();
-            Event eventMock = new Event("Old", DateTime.Parse("11-01-2000 10:00"), DateTime.Parse("11-01-2000 12:00"), "");
-            var day = new Day(DateTime.Parse("11-01-2000"));
+            Event eventMock = new Event("Old", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            var day = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
             day.EventsList.Add(eventMock);
 
             calendarMock.Expect(dao => dao.AllDays.Add(day));
@@ -75,8 +78,9 @@ namespace Calendar.ModelView.Tests
         public void SaveEmptyEventInfoTest()
         {
             List<Event> events = new List<Event>();
-            Event eventMock = new Event("Old", DateTime.Parse("11-01-2000 10:00"), DateTime.Parse("11-01-2000 12:00"), "");
-            var day = new Day(DateTime.Parse("11-01-2000"));
+            Event eventMock = new Event("Old", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            var day = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
             day.EventsList.Add(eventMock);
 
             calendarMock.Expect(dao => dao.AllDays.Add(day));
@@ -100,8 +104,9 @@ namespace Calendar.ModelView.Tests
         public void DeleteEventTest()
         {
             List<Event> events = new List<Event>();
-            Event eventMock = new Event("New", DateTime.Parse("11-01-2000 10:00"), DateTime.Parse("11-01-2000 12:00"), "");
-            var day = new Day(DateTime.Parse("11-01-2000"));
+            Event eventMock = new Event("New", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), 
+                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            var day = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
             day.EventsList.Add(eventMock);
 
             calendarMock.Expect(dao => dao.AllDays.Add(day));

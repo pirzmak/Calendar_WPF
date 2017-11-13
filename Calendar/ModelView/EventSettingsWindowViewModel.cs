@@ -75,7 +75,7 @@ namespace Calendar.ModelView
             NewToM = e.EndDate.Minute;
             MyEvent = e;
             OldEvent = true;
-            this.CalendarModel = calendarModel;
+            CalendarModel = calendarModel;
         }
 
         public void LoadNewEventInfo(Event e, ICalendar calendarModel)
@@ -88,7 +88,7 @@ namespace Calendar.ModelView
             NewToM = 0;
             MyEvent = e;
             OldEvent = false;
-            this.CalendarModel = calendarModel;
+            CalendarModel = calendarModel;
         }
 
         private void SaveButtonClick(object sender)
@@ -99,9 +99,11 @@ namespace Calendar.ModelView
                 MyEvent.Message = NewMessage;
                 MyEvent.StartDate = new DateTime(MyEvent.StartDate.Year, MyEvent.StartDate.Month, MyEvent.StartDate.Day, NewFromH, NewFromM, 0);
                 MyEvent.EndDate = new DateTime(MyEvent.StartDate.Year, MyEvent.StartDate.Month, MyEvent.StartDate.Day, NewToH, NewToM, 0);
-
-                if(!OldEvent)
+                
+                if (!OldEvent)
                     CalendarModel.AddEvent(MyEvent);
+                else
+                    CalendarModel.EditEvent(MyEvent);
 
                 ((Window)sender).Close();
             }

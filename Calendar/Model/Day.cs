@@ -1,5 +1,6 @@
 ﻿using Calendar.Utils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -9,21 +10,14 @@ namespace Calendar.Model
     public class Day : NotifyBase
     {
         private DateTime _date;
-        private BindingList<Event> _eventsList;        
+        private List<Event> _eventsList;        
 
         public Day(DateTime date)
         {
             this.Date = date;
-            EventsList = new BindingList<Event>();
-            EventsList = new BindingList<Event>(EventsList.OrderBy(e => e.StartDate.TimeOfDay).ToList());
-
-            EventsList.ListChanged += EventsChanged;
-        }
-
-        private void EventsChanged(object sender, ListChangedEventArgs c)
-        {            
-            OnPropertyChanged("EventsList");
-        }
+            EventsList = new List<Event>();
+            EventsList = new List<Event>(EventsList.OrderBy(e => e.StartDate.TimeOfDay).ToList());            
+        }        
 
         public DateTime Date
         {
@@ -31,7 +25,7 @@ namespace Calendar.Model
             set { SetProperty(ref _date, value); }
         }      
 
-        public BindingList<Event> EventsList
+        public List<Event> EventsList
         {
             get { return _eventsList; }
             set { SetProperty(ref _eventsList, value); }
@@ -51,7 +45,14 @@ namespace Calendar.Model
         public void AddEvent(Event e)
         {
             EventsList.Add(e);
-            EventsList = new BindingList<Event>(EventsList.OrderBy(ev => ev.StartDate.TimeOfDay).ToList());
+            EventsList = new List<Event>(EventsList.OrderBy(ev => ev.StartDate.TimeOfDay).ToList());
+        }
+
+        public void EditEvent(Event e)
+        {
+            foreach (Event ev in EventsList)
+                if (ev.Id.Equals(e.Id))
+                    ev.copy(e);
         }
 
         public void DeleteEvent(Event e)

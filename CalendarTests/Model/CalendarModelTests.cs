@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Rhino.Mocks;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Calendar.Model.Tests
 {
@@ -22,8 +23,8 @@ namespace Calendar.Model.Tests
         [TestMethod()]
         public void LoadEventsTest_AllInWindow()
         {
-            Day day1 = new Day(DateTime.Parse("11-01-2000"));
-            Day day2 = new Day(DateTime.Parse("12-01-2000"));
+            Day day1 = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
+            Day day2 = new Day(DateTime.ParseExact("12-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
             day1.AddEvent(new Event("s"));
             day1.AddEvent(new Event("b"));
@@ -32,7 +33,8 @@ namespace Calendar.Model.Tests
             
             calendar.AllDays = new List<Day>(new Day[] {day1, day2});
 
-            BindingList<Day> testList = calendar.LoadEvents(DateTime.Parse("11-01-2000"), DateTime.Parse("07-02-2000"));
+            List<Day> testList = calendar.LoadEvents(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("07-02-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
             Assert.AreEqual(testList.Count, calendar.AllDays.Count, "Alldays in loaded");
 
@@ -44,8 +46,8 @@ namespace Calendar.Model.Tests
         [TestMethod()]
         public void LoadEventsTest_NotAllInWindow()
         {
-            Day day1 = new Day(DateTime.Parse("11-01-2000"));
-            Day day2 = new Day(DateTime.Parse("12-03-2000"));
+            Day day1 = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
+            Day day2 = new Day(DateTime.ParseExact("12-03-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
             day1.AddEvent(new Event("s"));
             day1.AddEvent(new Event("b"));
@@ -54,7 +56,8 @@ namespace Calendar.Model.Tests
 
             calendar.AllDays = new List<Day>(new Day[] { day1, day2 });
 
-            BindingList<Day> testList = calendar.LoadEvents(DateTime.Parse("11-01-2000"), DateTime.Parse("07-02-2000"));
+            List<Day> testList = calendar.LoadEvents(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture), 
+                DateTime.ParseExact("07-02-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
             Assert.AreEqual(testList.Count, 1, "Alldays in loaded");
             

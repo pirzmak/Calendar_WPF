@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace Calendar.ModelView
 {
@@ -29,15 +31,16 @@ namespace Calendar.ModelView
 
             CalendarModel = new CalendarModel();
             CalendarModel.LoadEvents(ActualDay, ActualDay.AddDays(4 * NUMDAYSINWEEK));
-            
-            ((CalendarModel)CalendarModel).PropertyChanged += OnPropertyChange;
 
-            Days = LoadEvents();            
+            CalendarModel.Days.CollectionChanged += OnPropertyChange;
+
+            Days = LoadEvents();     
+            
 
             log.Info("Calendar Started");
         }
 
-        public void OnPropertyChange(object sender, PropertyChangedEventArgs e)
+        public void OnPropertyChange(object sender, NotifyCollectionChangedEventArgs e)
         {
             Days = LoadEvents();            
         }

@@ -6,7 +6,7 @@
         xmlns:ctrl="clr-namespace:Calendar.View"
         xmlns:vm="clr-namespace:Calendar.ModelView"
         mc:Ignorable="d"
-        Title="EventSettings" Height="300" Width="300" Name="windowSettings">
+        Title="EventSettings" Height="300" Width="300" Name="windowSettings" MinHeight="300" MinWidth="200">
     
 
     <Window.DataContext>
@@ -24,11 +24,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="70*"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="40*"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="40*"></RowDefinition>
-            <RowDefinition Height="50*"></RowDefinition>
+            <RowDefinition Height="23"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="23"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0">

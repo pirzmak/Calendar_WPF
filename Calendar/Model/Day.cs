@@ -53,11 +53,13 @@ namespace Calendar.Model
             foreach (Event ev in EventsList)
                 if (ev.Id.Equals(e.Id))
                     ev.copy(e);
+            EventsList = new List<Event>(EventsList.OrderBy(ev => ev.StartDate.TimeOfDay).ToList());
         }
 
         public void DeleteEvent(Event e)
         {
             EventsList.Remove(e);
+            EventsList = new List<Event>(EventsList.OrderBy(ev => ev.StartDate.TimeOfDay).ToList());
         }
         
     }

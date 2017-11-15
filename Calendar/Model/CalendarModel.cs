@@ -13,7 +13,7 @@ namespace Calendar.Model
     {
         private EventDAO eventDAO;
         public List<Day> AllDays { get; set; }
-        public List<Day> Days { get; set; }
+        public ObservableCollection<Day> Days { get; set; }
 
         public CalendarModel()
         {
@@ -22,10 +22,10 @@ namespace Calendar.Model
             AllDays.ForEach(d => d.EventsList = d.EventsList.OrderBy(e => e.StartDate).ToList());
         }
 
-        public List<Day> LoadEvents(DateTime from, DateTime to)
+        public ObservableCollection<Day> LoadEvents(DateTime from, DateTime to)
         {
             List<Day> filteredList = AllDays.Where(d => d.Date.Date.CompareTo(from.Date) >= 0 && d.Date.Date.CompareTo(to.Date) <= 0).ToList();
-            Days = new List<Day>(filteredList);              
+            Days = new ObservableCollection<Day>(filteredList);              
             
             return Days;
         }        
@@ -53,8 +53,9 @@ namespace Calendar.Model
 
             Day newDay = new Day(e.StartDate);
             newDay.AddEvent(e);
-            
+
             AllDays.Add(newDay);
+            Days.Add(newDay);
 
             eventDAO.saveEvent(e);
         }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Rhino.Mocks;
 using System.ComponentModel;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 namespace Calendar.Model.Tests
 {
@@ -33,7 +34,7 @@ namespace Calendar.Model.Tests
             
             calendar.AllDays = new List<Day>(new Day[] {day1, day2});
 
-            List<Day> testList = calendar.LoadEvents(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture),
+            ObservableCollection<Day> testList = calendar.LoadEvents(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture),
                 DateTime.ParseExact("07-02-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
             Assert.AreEqual(testList.Count, calendar.AllDays.Count, "Alldays in loaded");
@@ -56,7 +57,7 @@ namespace Calendar.Model.Tests
 
             calendar.AllDays = new List<Day>(new Day[] { day1, day2 });
 
-            List<Day> testList = calendar.LoadEvents(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture), 
+            ObservableCollection<Day> testList = calendar.LoadEvents(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture), 
                 DateTime.ParseExact("07-02-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
             Assert.AreEqual(testList.Count, 1, "Alldays in loaded");

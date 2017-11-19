@@ -7,18 +7,28 @@ using System.Windows.Input;
 
 namespace Calendar.ModelView
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private Action<object> _action;
-        public RelayCommand(Action<object> action)
+        private Func<bool> _func;
+        public RelayCommand(Action<object> action, Func<bool> func)
         {
             _action = action;
+            _func = func;
         }
 
         #region ICommand Members
         public bool CanExecute(object parameter)
         {
+            if (_func != null)
+                return _func();
             return true;
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            if (CanExecuteChanged != null)
+                CanExecuteChanged(this, new EventArgs());
         }
 
         public event EventHandler CanExecuteChanged;

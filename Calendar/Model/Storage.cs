@@ -8,6 +8,9 @@ namespace Calendar.Model
 {
     public class Storage
     {
+        private static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public List<Person> getPersons()
         {
             using (var db = new StorageContext())
@@ -16,14 +19,25 @@ namespace Calendar.Model
 
         public Person getPerson(string login)
         {
-            using (var db = new StorageContext())
-                return db.Persons.Where(p => p.UserID == login).First();
+            try
+            {
+                using (var db = new StorageContext())
+                    return db.Persons.Where(p => p.UserID.Equals(login)).First();
+            }
+            catch (ArgumentNullException ANE)
+            {
+                log.Error("User " + login + "can't be load:" + ANE);
+                throw ANE;
+            }
         }
 
         public List<Appointment> getAppointments()
         {
             using (var db = new StorageContext())
+            {
                 return db.Appointments.ToList();
+            }
+                
         }
 
         public void createAppointment(string title, DateTime startDate, DateTime endDate)
@@ -39,7 +53,15 @@ namespace Calendar.Model
                     Attendances = new List<Attendance>()
                 };
                 db.Appointments.Add(Appointment);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception E)
+                {
+                    log.Error("Message did not create becouse of: " + E);
+                    throw E;
+                }
             }
         }
 

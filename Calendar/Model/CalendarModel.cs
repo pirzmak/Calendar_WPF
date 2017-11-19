@@ -18,9 +18,10 @@ namespace Calendar.Model
         public CalendarModel()
         {
             storage = new Storage();
-            List<Appointment> appointments = storage.getAppointments();
-            AllDays = getDays(appointments);
-            AllDays.ForEach(d => d.AppointmentsList = d.AppointmentsList.OrderBy(e => e.StartTime).ToList());
+            //    List<Appointment> appointments = storage.getAppointments();
+            //    AllDays = getDays(appointments);
+            //    AllDays.ForEach(d => d.AppointmentsList = d.AppointmentsList.OrderBy(e => e.StartTime).ToList());
+            AllDays = new List<Day>();
         }
 
         private List<Day> getDays(List<Appointment> appointments)
@@ -50,34 +51,55 @@ namespace Calendar.Model
             return Days;
         }        
         
-        public void DeleteEvent(Appointment e)
+        public void DeleteAppointment(Appointment e)
         {
-            foreach (Day d in AllDays)
-                if (d.Date.Date.Equals(e.AppointmentDate.Date)) d.DeleteEvent(e);
+            try
+            {
+                storage.deleteAppointment(e);
 
-            storage.deleteAppointment(e);
+                foreach (Day d in AllDays)
+                    if (d.Date.Date.Equals(e.AppointmentDate.Date)) d.DeleteEvent(e);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void EditEvent(Appointment e)
+        public void UpdateAppointment(Appointment e) 
         {
-            foreach (Day d in AllDays)
-                if (d.Date.Date.Equals(e.AppointmentDate.Date)) d.EditEvent(e);
+            try
+            {
+                storage.updateAppointment(e);
 
-            storage.updateAppointment(e);
+                foreach (Day d in AllDays)
+                    if (d.Date.Date.Equals(e.AppointmentDate.Date)) d.EditEvent(e);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void AddEvent(Appointment e)
+        public void AddAppointment(Appointment e)
         {
-            foreach (Day d in AllDays)
-                if (d.Date.Date.Equals(e.AppointmentDate.Date)) { d.AddEvent(e); storage.createAppointment(e.Title, e.StartTime, e.EndTime); return; }
+            try
+            {
+                storage.createAppointment(e.Title, e.StartTime, e.EndTime);
 
-            Day newDay = new Day(e.AppointmentDate);
-            newDay.AddEvent(e);
+                foreach (Day d in AllDays)
+                    if (d.Date.Date.Equals(e.AppointmentDate.Date)) { d.AddEvent(e); storage.createAppointment(e.Title, e.StartTime, e.EndTime); return; }
 
-            AllDays.Add(newDay);
-            Days.Add(newDay);
+                Day newDay = new Day(e.AppointmentDate);
+                newDay.AddEvent(e);
 
-            storage.createAppointment(e.Title, e.StartTime, e.EndTime);
+                AllDays.Add(newDay);
+                Days.Add(newDay);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
     }

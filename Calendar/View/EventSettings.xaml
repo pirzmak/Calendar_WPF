@@ -11,9 +11,10 @@
 
     <Window.DataContext>
         <vm:EventSettingsWindowViewModel x:Name="vm1"/>
-    </Window.DataContext>    
+    </Window.DataContext>   
+ 
     
-    <Grid>
+    <Grid Name="MainPanel">
         <Grid.Resources >
             <Style TargetType="Border" >
                 <Setter Property="Padding" Value="5,5,5,5" />
@@ -31,8 +32,36 @@
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <Popup IsOpen = "{Binding Error}"    
+               PlacementTarget="{Binding ElementName=windowSettings}"
+               VerticalOffset="-200"
+               HorizontalOffset="50"
+               Placement="Bottom"
+               AllowsTransparency = "True" PopupAnimation = "Slide">
+            <Grid>
+                <StackPanel Background = "LightGray" Width="200" Height="100">
+                    <TextBlock TextWrapping = "Wrap" 
+                               Foreground = "Red"
+                               Text = "{Binding ErrorText}" />
+                </StackPanel>
+            </Grid>
+        </Popup>
+        <Popup IsOpen = "{Binding Warning}"    
+               PlacementTarget="{Binding ElementName=MainPanel}"
+               VerticalOffset="30"
+               Placement="Left"
+               AllowsTransparency = "True" PopupAnimation = "Slide">
+            <Grid>
+                <StackPanel Background = "LightGray" Width="200" Height="50">
+                    <TextBlock TextWrapping = "Wrap" 
+                               Foreground = "Red"
+                               Text = "{Binding WarningText}" />
+                </StackPanel>
+            </Grid>
+        </Popup>
+
         <Border Grid.Row="0">
-            <ctrl:LabelledTextBox Grid.Row="0" Label="Title" Text="{Binding NewTitle}"/>
+           <ctrl:LabelledTextBox Grid.Row="0" Label="Title" Text="{Binding NewTitle}"/>            
         </Border>
         <Border Grid.Row="1">
             <ctrl:LabelledTextBox Label="Message" Text="{Binding NewMessage}"/>

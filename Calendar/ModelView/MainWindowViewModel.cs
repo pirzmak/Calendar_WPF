@@ -3,11 +3,6 @@ using Calendar.Utils;
 using System;
 using System.Linq;
 using System.Windows.Input;
-using System.Diagnostics;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Windows.Media;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace Calendar.ModelView
@@ -96,9 +91,8 @@ namespace Calendar.ModelView
             return date.AddDays(-((int)date.DayOfWeek - 1));
         }
 
-        public ICommand NextClickCommand { get { return new RelayCommand(o => NextClick()); } }
-        public ICommand PrevClickCommand { get { return new RelayCommand(o => PrevClick()); } }
+        public ICommand NextClickCommand { get { return new RelayCommand(o => NextClick(), () => true); } }
+        public ICommand PrevClickCommand { get { return new RelayCommand(o => PrevClick(), () => true); } }
 
     }
-
 }

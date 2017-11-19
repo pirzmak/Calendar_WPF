@@ -12,7 +12,7 @@ namespace Calendar.ModelView
     public class EventSettingsWindowViewModel : NotifyBase
     {       
 
-        public Event MyEvent { get; set; }
+        public Appointment MyAppointment { get; set; }
         public ICalendar CalendarModel { get; set; }
         private bool _oldEvent;
 
@@ -65,20 +65,20 @@ namespace Calendar.ModelView
             set { SetProperty(ref _newToM, value); }
         }
 
-        public void LoadEventInfo(Event e, ICalendar calendarModel)
+        public void LoadEventInfo(Appointment e, ICalendar calendarModel)
         {
             NewTitle = e.Title;
-            NewMessage = e.Message;
-            NewFromH = e.StartDate.Hour;
-            NewFromM = e.StartDate.Minute;
-            NewToH = e.EndDate.Hour;
-            NewToM = e.EndDate.Minute;
-            MyEvent = e;
+            //NewMessage = e.Message;
+            NewFromH = e.StartTime.Hour;
+            NewFromM = e.StartTime.Minute;
+            NewToH = e.EndTime.Hour;
+            NewToM = e.EndTime.Minute;
+            MyAppointment = e;
             OldEvent = true;
             CalendarModel = calendarModel;
         }
 
-        public void LoadNewEventInfo(Event e, ICalendar calendarModel)
+        public void LoadNewEventInfo(Appointment e, ICalendar calendarModel)
         {
             NewTitle = "";
             NewMessage = "";
@@ -86,7 +86,7 @@ namespace Calendar.ModelView
             NewFromM = 0;
             NewToH = 12;
             NewToM = 0;
-            MyEvent = e;
+            MyAppointment = e;
             OldEvent = false;
             CalendarModel = calendarModel;
         }
@@ -95,15 +95,15 @@ namespace Calendar.ModelView
         {
             if (NewTitle != "")
             {
-                MyEvent.Title = NewTitle;
-                MyEvent.Message = NewMessage;
-                MyEvent.StartDate = new DateTime(MyEvent.StartDate.Year, MyEvent.StartDate.Month, MyEvent.StartDate.Day, NewFromH, NewFromM, 0);
-                MyEvent.EndDate = new DateTime(MyEvent.StartDate.Year, MyEvent.StartDate.Month, MyEvent.StartDate.Day, NewToH, NewToM, 0);
+                MyAppointment.Title = NewTitle;
+                //MyAppointment.Message = NewMessage;
+                MyAppointment.StartTime = new DateTime(MyAppointment.StartTime.Year, MyAppointment.StartTime.Month, MyAppointment.StartTime.Day, NewFromH, NewFromM, 0);
+                MyAppointment.EndTime = new DateTime(MyAppointment.StartTime.Year, MyAppointment.StartTime.Month, MyAppointment.StartTime.Day, NewToH, NewToM, 0);
                 
                 if (!OldEvent)
-                    CalendarModel.AddEvent(MyEvent);
+                    CalendarModel.AddEvent(MyAppointment);
                 else
-                    CalendarModel.EditEvent(MyEvent);
+                    CalendarModel.EditEvent(MyAppointment);
 
                 ((Window)sender).Close();
             }
@@ -111,7 +111,7 @@ namespace Calendar.ModelView
 
         private void DeleteButtonClick(object sender)
         {
-            CalendarModel.DeleteEvent(MyEvent);
+            CalendarModel.DeleteEvent(MyAppointment);
             ((Window)sender).Close();
         }
 

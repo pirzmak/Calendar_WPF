@@ -37,6 +37,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -50,6 +56,7 @@
       <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -71,10 +78,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Migrations\201711191110505_InitialCreate.cs" />
+    <Compile Include="Migrations\201711191110505_InitialCreate.Designer.cs">
+      <DependentUpon>201711191110505_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711191405368_DBV1.cs" />
+    <Compile Include="Migrations\201711191405368_DBV1.Designer.cs">
+      <DependentUpon>201711191405368_DBV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelView\EventSettingsWindowViewModel.cs" />
     <Compile Include="ModelView\IsTodayConverter.cs" />
-    <Compile Include="Model\EventDAO.cs" />
+    <Compile Include="Model\Appointment.cs" />
+    <Compile Include="Model\Attendance.cs" />
+    <Compile Include="Model\Person.cs" />
     <Compile Include="Model\ICalendar.cs" />
+    <Compile Include="Model\Storage.cs" />
+    <Compile Include="Model\StorageContext.cs" />
     <Compile Include="Utils\NotifyBase.cs" />
     <Compile Include="Model\Day.cs" />
     <Compile Include="View\EventSettings.xaml.cs">
@@ -97,7 +117,6 @@
     <Compile Include="ModelView\MainWindowViewModel.cs" />
     <Compile Include="ModelView\RelayCommand .cs" />
     <Compile Include="Model\CalendarModel.cs" />
-    <Compile Include="Model\Event.cs" />
     <Compile Include="View\Calendar.xaml.cs">
       <DependentUpon>Calendar.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -129,6 +148,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201711191110505_InitialCreate.resx">
+      <DependentUpon>201711191110505_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191405368_DBV1.resx">
+      <DependentUpon>201711191405368_DBV1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -10,13 +10,13 @@ namespace Calendar.Model
     public class Day : NotifyBase
     {
         private DateTime _date;
-        private List<Event> _eventsList;        
+        private List<Appointment> _appointmentsList;        
 
         public Day(DateTime date)
         {
             this.Date = date;
-            EventsList = new List<Event>();
-            EventsList = new List<Event>(EventsList.OrderBy(e => e.StartDate.TimeOfDay).ToList());            
+            AppointmentsList = new List<Appointment>();
+            AppointmentsList = new List<Appointment>(AppointmentsList.OrderBy(e => e.StartTime.TimeOfDay).ToList());            
         }        
 
         public DateTime Date
@@ -25,10 +25,10 @@ namespace Calendar.Model
             set { SetProperty(ref _date, value); }
         }      
 
-        public List<Event> EventsList
+        public List<Appointment> AppointmentsList
         {
-            get { return _eventsList; }
-            set { SetProperty(ref _eventsList, value); }
+            get { return _appointmentsList; }
+            set { SetProperty(ref _appointmentsList, value); }
         }
 
         public String DateWeekNumber
@@ -42,24 +42,24 @@ namespace Calendar.Model
         }
      
 
-        public void AddEvent(Event e)
+        public void AddEvent(Appointment e)
         {
-            EventsList.Add(e);
-            EventsList = new List<Event>(EventsList.OrderBy(ev => ev.StartDate.TimeOfDay).ToList());
+            AppointmentsList.Add(e);
+            AppointmentsList = new List<Appointment>(AppointmentsList.OrderBy(ev => ev.StartTime.TimeOfDay).ToList());
         }
 
-        public void EditEvent(Event e)
+        public void EditEvent(Appointment e)
         {
-            foreach (Event ev in EventsList)
-                if (ev.Id.Equals(e.Id))
+            foreach (Appointment ev in AppointmentsList)
+                if (ev.AppointmentId.Equals(e.AppointmentId))
                     ev.copy(e);
-            EventsList = new List<Event>(EventsList.OrderBy(ev => ev.StartDate.TimeOfDay).ToList());
+            AppointmentsList = new List<Appointment>(AppointmentsList.OrderBy(ev => ev.StartTime.TimeOfDay).ToList());
         }
 
-        public void DeleteEvent(Event e)
+        public void DeleteEvent(Appointment e)
         {
-            EventsList.Remove(e);
-            EventsList = new List<Event>(EventsList.OrderBy(ev => ev.StartDate.TimeOfDay).ToList());
+            AppointmentsList.Remove(e);
+            AppointmentsList = new List<Appointment>(AppointmentsList.OrderBy(ev => ev.StartTime.TimeOfDay).ToList());
         }
         
     }

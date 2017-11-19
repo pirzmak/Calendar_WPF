@@ -71,8 +71,8 @@
                     <TextBlock Style="{StaticResource MyEventLabelText}">
                         <TextBlock.Text>
                             <MultiBinding StringFormat="{}{0:HH.mm} - {1:HH.mm} {2}">
-                                <Binding Path="StartDate" />
-                                <Binding Path="EndDate" />
+                                <Binding Path="StartTime" />
+                                <Binding Path="EndTime" />
                                 <Binding Path="Title" />
                             </MultiBinding>
                         </TextBlock.Text>
@@ -94,7 +94,7 @@
                         <Border Grid.Row="0" Style="{StaticResource MyDayHeader}">
                             <TextBlock x:Name="label" Style="{StaticResource MyDayHeaderLabelText}" Text="{Binding Date, StringFormat={}{0:dd MMMM}}"></TextBlock>
                     </Border>
-                        <ListView Grid.Row="1" ItemsSource="{Binding EventsList}" ItemTemplate="{StaticResource MyEventLabel}" Style="{StaticResource MyCalendarList}">
+                        <ListView Grid.Row="1" ItemsSource="{Binding AppointmentsList}" ItemTemplate="{StaticResource MyEventLabel}" Style="{StaticResource MyCalendarList}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />

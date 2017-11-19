@@ -23,35 +23,43 @@ namespace Calendar.Model.Tests
         [TestMethod()]
         public void DeleteEventTest()
         {
-            List<Event> events = new List<Event>();
-            Event eventMock = new Event("Old", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), 
-                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            List<Appointment> events = new List<Appointment>();
+            Appointment eventMock = new Appointment{Title = "Old", StartTime = DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                EndTime = DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture)};
             
-            d.EventsList.Add(eventMock);
+            d.AppointmentsList.Add(eventMock);
 
-            Assert.IsTrue(d.EventsList.Count == 1);
+            Assert.IsTrue(d.AppointmentsList.Count == 1);
 
             d.DeleteEvent(eventMock);
 
-            Assert.IsTrue(d.EventsList.Count == 0);
+            Assert.IsTrue(d.AppointmentsList.Count == 0);
         }
         [TestMethod()]
         public void AddEventTest()
         {
-            List<Event> events = new List<Event>();
-            Event eventMock = new Event("Old", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), 
-                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            List<Appointment> events = new List<Appointment>();
+            Appointment eventMock = new Appointment
+            {
+                Title = "Old",
+                StartTime = DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                EndTime = DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture)
+            };
 
-            d.EventsList.Add(eventMock);
+            d.AppointmentsList.Add(eventMock);
 
-            Assert.IsTrue(d.EventsList.Count == 1);
+            Assert.IsTrue(d.AppointmentsList.Count == 1);
 
-            Event eventMock2 = new Event("Old", DateTime.ParseExact("12-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), 
-                DateTime.ParseExact("12-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            Appointment eventMock2 = new Appointment
+            {
+                Title = "Old",
+                StartTime = DateTime.ParseExact("12-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                EndTime = DateTime.ParseExact("12-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture)
+            };
 
-            d.EventsList.Add(eventMock2);
+            d.AppointmentsList.Add(eventMock2);
 
-            Assert.IsTrue(d.EventsList.Count == 2);
+            Assert.IsTrue(d.AppointmentsList.Count == 2);
         }
     }
 }

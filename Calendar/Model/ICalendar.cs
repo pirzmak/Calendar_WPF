@@ -13,8 +13,8 @@ namespace Calendar.Model
         List<Day> AllDays { get; set; }
         ObservableCollection<Day> Days { get; set; }
         ObservableCollection<Day> LoadEvents(DateTime from, DateTime to);
-        void EditEvent(Event e);
-        void DeleteEvent(Event e);
-        void AddEvent(Event e);
+        void EditEvent(Appointment e);
+        void DeleteEvent(Appointment e);
+        void AddEvent(Appointment e);
     }
 }

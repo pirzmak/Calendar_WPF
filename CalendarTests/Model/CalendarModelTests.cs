@@ -27,10 +27,10 @@ namespace Calendar.Model.Tests
             Day day1 = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
             Day day2 = new Day(DateTime.ParseExact("12-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
-            day1.AddEvent(new Event("s"));
-            day1.AddEvent(new Event("b"));
+            day1.AddEvent(new Appointment { Title = "a"});
+            day1.AddEvent(new Appointment { Title = "b" });
 
-            day2.AddEvent(new Event("b"));
+            day2.AddEvent(new Appointment { Title = "b" });
             
             calendar.AllDays = new List<Day>(new Day[] {day1, day2});
 
@@ -50,10 +50,10 @@ namespace Calendar.Model.Tests
             Day day1 = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
             Day day2 = new Day(DateTime.ParseExact("12-03-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
-            day1.AddEvent(new Event("s"));
-            day1.AddEvent(new Event("b"));
+            day1.AddEvent(new Appointment { Title = "a" });
+            day1.AddEvent(new Appointment { Title = "b" });
 
-            day2.AddEvent(new Event("b"));
+            day2.AddEvent(new Appointment { Title = "b" });
 
             calendar.AllDays = new List<Day>(new Day[] { day1, day2 });
 

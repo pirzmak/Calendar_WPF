@@ -11,15 +11,35 @@ namespace Calendar.Model
 {
     public class CalendarModel : NotifyBase, ICalendar
     {
-        private EventDAO eventDAO;
+        private Storage storage;
         public List<Day> AllDays { get; set; }
         public ObservableCollection<Day> Days { get; set; }
 
         public CalendarModel()
         {
-            eventDAO = new EventDAO();
-            AllDays = eventDAO.getEvents();
-            AllDays.ForEach(d => d.EventsList = d.EventsList.OrderBy(e => e.StartDate).ToList());
+            storage = new Storage();
+            List<Appointment> appointments = storage.getAppointments();
+            AllDays = getDays(appointments);
+            AllDays.ForEach(d => d.AppointmentsList = d.AppointmentsList.OrderBy(e => e.StartTime).ToList());
+        }
+
+        private List<Day> getDays(List<Appointment> appointments)
+        {
+            List<Day> days = new List<Day>();
+
+            foreach (Appointment e in appointments)
+            {
+                if (days.Exists(d => e.AppointmentDate.Date.Equals(d.Date)))
+                    days.Find(d => e.AppointmentDate.Date.Equals(d.Date)).AppointmentsList.Add(e);
+                else
+                {
+                    Day newDay = new Day(e.StartTime.Date);
+                    newDay.AddEvent(e);
+                    days.Add(newDay);
+                }
+            }
+
+            return days;
         }
 
         public ObservableCollection<Day> LoadEvents(DateTime from, DateTime to)
@@ -30,34 +50,34 @@ namespace Calendar.Model
             return Days;
         }        
         
-        public void DeleteEvent(Event e)
+        public void DeleteEvent(Appointment e)
         {
             foreach (Day d in AllDays)
-                if (d.Date.Date.Equals(e.StartDate.Date)) d.DeleteEvent(e);
+                if (d.Date.Date.Equals(e.AppointmentDate.Date)) d.DeleteEvent(e);
 
-            eventDAO.deleteEvent(e);
+            storage.deleteAppointment(e);
         }
 
-        public void EditEvent(Event e)
+        public void EditEvent(Appointment e)
         {
             foreach (Day d in AllDays)
-                if (d.Date.Date.Equals(e.StartDate.Date)) d.EditEvent(e);
+                if (d.Date.Date.Equals(e.AppointmentDate.Date)) d.EditEvent(e);
 
-            eventDAO.ChangeEvent(e);
+            storage.updateAppointment(e);
         }
 
-        public void AddEvent(Event e)
+        public void AddEvent(Appointment e)
         {
             foreach (Day d in AllDays)
-                if (d.Date.Date.Equals(e.StartDate.Date)) { d.AddEvent(e); eventDAO.saveEvent(e); return; }
+                if (d.Date.Date.Equals(e.AppointmentDate.Date)) { d.AddEvent(e); storage.createAppointment(e.Title, e.StartTime, e.EndTime); return; }
 
-            Day newDay = new Day(e.StartDate);
+            Day newDay = new Day(e.AppointmentDate);
             newDay.AddEvent(e);
 
             AllDays.Add(newDay);
             Days.Add(newDay);
 
-            eventDAO.saveEvent(e);
+            storage.createAppointment(e.Title, e.StartTime, e.EndTime);
         }
 
     }

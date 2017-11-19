@@ -27,34 +27,39 @@ namespace Calendar.ModelView.Tests
         [TestMethod()]
         public void SaveChangeEventInfoTest()
         {
-            List<Event> events = new List<Event>();
-            Event eventMock = new Event("New", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
-                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            List<Appointment> events = new List<Appointment>();
+            Appointment eventMock = new Appointment{Title="New", StartTime = DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                EndTime = DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture)};
             var day = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
-            day.EventsList.Add(eventMock);
+            day.AppointmentsList.Add(eventMock);
 
             calendarMock.Expect(dao => dao.AllDays.Add(day));
 
-            vm.MyEvent = eventMock;
+            vm.MyAppointment = eventMock;
             vm.OldEvent = true;
 
             vm.NewTitle = "Newer";
 
             vm.SaveCommand.Execute(new EventSettings());
 
-            calendarMock.Expect(dao => dao.AllDays[0].EventsList[0].Title).Equals("Newer");
+            calendarMock.Expect(dao => dao.AllDays[0].AppointmentsList[0].Title).Equals("Newer");
             
 
-            Assert.AreEqual("Newer", vm.CalendarModel.AllDays[0].EventsList[0].Title);
+            Assert.AreEqual("Newer", vm.CalendarModel.AllDays[0].AppointmentsList[0].Title);
         }
         [TestMethod()]
         public void SaveNewEventInfoTest()
         {
-            List<Event> events = new List<Event>();
-            Event eventMock = new Event("Old", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
-                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            List<Appointment> events = new List<Appointment>();
+            Appointment eventMock = new Appointment
+            {
+                Title = "New",
+                StartTime = DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                EndTime = DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture)
+            };
+
             var day = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
-            day.EventsList.Add(eventMock);
+            day.AppointmentsList.Add(eventMock);
 
             calendarMock.Expect(dao => dao.AllDays.Add(day));
 
@@ -64,24 +69,29 @@ namespace Calendar.ModelView.Tests
             vm.NewToM = 30;
             vm.NewTitle = "New";
 
-            vm.MyEvent = eventMock;
+            vm.MyAppointment = eventMock;
             vm.OldEvent = false;            
 
             vm.SaveCommand.Execute(new EventSettings());
 
             calendarMock.Expect(dao => dao.AllDays.Count).Equals(2);
 
-            Assert.IsTrue(vm.CalendarModel.AllDays[0].EventsList[0].Title == "New" ||
-                vm.CalendarModel.AllDays[0].EventsList[0].Title == "Old");
+            Assert.IsTrue(vm.CalendarModel.AllDays[0].AppointmentsList[0].Title == "New" ||
+                vm.CalendarModel.AllDays[0].AppointmentsList[0].Title == "Old");
         }
         [TestMethod()]
         public void SaveEmptyEventInfoTest()
         {
-            List<Event> events = new List<Event>();
-            Event eventMock = new Event("Old", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
-                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            List<Appointment> events = new List<Appointment>();
+            Appointment eventMock = new Appointment
+            {
+                Title = "New",
+                StartTime = DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                EndTime = DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture)
+            };
+
             var day = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
-            day.EventsList.Add(eventMock);
+            day.AppointmentsList.Add(eventMock);
 
             calendarMock.Expect(dao => dao.AllDays.Add(day));
 
@@ -91,7 +101,7 @@ namespace Calendar.ModelView.Tests
             vm.NewToM = 30;
             vm.NewTitle = "";
 
-            vm.MyEvent = eventMock;
+            vm.MyAppointment = eventMock;
             vm.OldEvent = false;
 
             vm.SaveCommand.Execute(new EventSettings());
@@ -103,25 +113,30 @@ namespace Calendar.ModelView.Tests
         [TestMethod()]
         public void DeleteEventTest()
         {
-            List<Event> events = new List<Event>();
-            Event eventMock = new Event("New", DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), 
-                DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture), "");
+            List<Appointment> events = new List<Appointment>();
+            Appointment eventMock = new Appointment
+            {
+                Title = "New",
+                StartTime = DateTime.ParseExact("11-01-2000 10:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                EndTime = DateTime.ParseExact("11-01-2000 12:00", "dd-MM-yyyy hh:mm", CultureInfo.InvariantCulture)
+            };
+
             var day = new Day(DateTime.ParseExact("11-01-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture));
-            day.EventsList.Add(eventMock);
+            day.AppointmentsList.Add(eventMock);
 
             calendarMock.Expect(dao => dao.AllDays.Add(day));
 
-            vm.MyEvent = eventMock;
+            vm.MyAppointment = eventMock;
             vm.OldEvent = true;
             
             vm.DeleteCommand.Execute(new EventSettings());
 
             calendarMock.Expect(dao => dao.AllDays[0].DeleteEvent(eventMock));
 
-            calendarMock.Expect(dao => dao.AllDays[0].EventsList.Count).Equals(0);
+            calendarMock.Expect(dao => dao.AllDays[0].AppointmentsList.Count).Equals(0);
 
 
-            Assert.AreEqual(0, vm.CalendarModel.AllDays[0].EventsList.Count);
+            Assert.AreEqual(0, vm.CalendarModel.AllDays[0].AppointmentsList.Count);
         }
     }
 }

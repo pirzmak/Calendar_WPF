@@ -33,7 +33,7 @@ namespace Calendar
 
             fontStyle = new FontFamily("Arial");
             Resources["fontStyle"] = fontStyle;
-
+                        
             InitializeComponent();   
         }
         
@@ -138,7 +138,7 @@ namespace Calendar
             return (SolidColorBrush)(new BrushConverter().ConvertFrom(color));
         }
 
-        private void ShowEventSettingInfo(Event e, bool newEvent)
+        private void ShowEventSettingInfo(Appointment e, bool newEvent)
         {
             MainWindowViewModel o1 = this.vm1;
             EventSettings wnd = new EventSettings();
@@ -152,7 +152,7 @@ namespace Calendar
 
         protected void HandleDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ShowEventSettingInfo(((ListViewItem)sender).Content as Event, false);
+            ShowEventSettingInfo(((ListViewItem)sender).Content as Appointment, false);
         }
 
         protected void HandleRectClick(object sender, MouseButtonEventArgs e)
@@ -160,7 +160,7 @@ namespace Calendar
             if (e.ClickCount == 2)
             {
                 DateTime date = (((Grid)sender).DataContext as Day).Date;
-                Event newEvent = new Event("", date, date, "");
+                Appointment newEvent = new Appointment { Title = "", AppointmentDate = date, StartTime = date, EndTime = date };
                 ShowEventSettingInfo(newEvent, true);
             }
         }       

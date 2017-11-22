@@ -15,6 +15,6 @@ namespace Calendar.Model
         public Guid AttendanceId { get; set; }
         public virtual Appointment Appointment { get; set; }
         public virtual Person Person { get; set; }
-        public bool accepted { get; set; }
+        public bool Accepted { get; set; }
     }
 }

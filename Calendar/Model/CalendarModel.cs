@@ -18,9 +18,9 @@ namespace Calendar.Model
         public CalendarModel()
         {
             storage = new Storage();
-            //    List<Appointment> appointments = storage.getAppointments();
-            //    AllDays = getDays(appointments);
-            //    AllDays.ForEach(d => d.AppointmentsList = d.AppointmentsList.OrderBy(e => e.StartTime).ToList());
+            // List<Appointment> appointments = storage.getAppointments();
+            // AllDays = getDays(appointments);
+            // AllDays.ForEach(d => d.AppointmentsList = d.AppointmentsList.OrderBy(e => e.StartTime).ToList());
             AllDays = new List<Day>();
         }
 
@@ -45,6 +45,9 @@ namespace Calendar.Model
 
         public ObservableCollection<Day> LoadEvents(DateTime from, DateTime to)
         {
+            // List<Appointment> appointments = storage.getAppointments();
+            // AllDays = getDays(appointments);
+            // AllDays.ForEach(d => d.AppointmentsList = d.AppointmentsList.OrderBy(e => e.StartTime).ToList());
             List<Day> filteredList = AllDays.Where(d => d.Date.Date.CompareTo(from.Date) >= 0 && d.Date.Date.CompareTo(to.Date) <= 0).ToList();
             Days = new ObservableCollection<Day>(filteredList);              
             

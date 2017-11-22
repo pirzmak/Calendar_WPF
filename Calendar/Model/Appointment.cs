@@ -17,6 +17,7 @@ namespace Calendar.Model
         public DateTime AppointmentDate { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public int Version { get; set; }
         public virtual List<Attendance> Attendances { get; set; }
         public void copy(Appointment e)
         {
